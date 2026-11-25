@@ -1,14 +1,6 @@
 
 
 
-
-
-
-
-
-
-
-
 <!doctype html>
 <html lang="fa" dir="rtl">
 <head>
@@ -3064,7 +3056,7 @@ function setProjectsView(view,btn){
   var captions={recent:'تمام پروژه‌های شما',saved:'پروژه‌هایی که ذخیره کرده‌اید',create:'فرم ساخت پروژه‌ی تازه'};
   var cap=$('#projectsViewCaption');if(cap)cap.innerHTML='<span class="projects-caption-dot"></span><span>'+captions[gnafyarProjectsView]+'</span>';
   var panel=$('#projectsCreatePanel'),tab=$('#projTab-projects');if(panel)panel.hidden=gnafyarProjectsView!=='create';if(tab)tab.hidden=gnafyarProjectsView==='create';
-  if(gnafyarProjectsView==='create'){setTimeout(function(){var input=$('#createProjectNameV47');var date=$('#createProjectDateV47');if(date&&!date.value)date.value=todayJ();if(input)input.focus({preventScroll:true})},80)}else renderProjectsList();
+  if(gnafyarProjectsView==='create'){var date=$('#createProjectDateV47');if(date&&!date.value)date.value=todayJ()}else renderProjectsList();
 }
 // Expose immediately: project tabs use inline onclick handlers.
 window.setProjectsView=setProjectsView;
@@ -11409,103 +11401,72 @@ body.gnafyar-projects-topbar-active .gnaf-projects-search-expand-v30{display:non
 
 <script id="gnafyar-projects-search-animation-v58-script">
 (function(){
-  var closeTimer=null;
-  var originalBackMarkup=null,originalBackClick=null,originalBackLabel=null,originalBackTitle=null;
-  function getParts(){
+  var closeTimer=null, originalSearchMarkup=null;
+  function parts(){
+    var bar=document.querySelector('body.gnafyar-projects-topbar-active .gnaf-projects-topbar-v30');
     return {
-      bar:document.querySelector('body.gnafyar-projects-topbar-active .gnaf-projects-topbar-v30'),
-      search:document.querySelector('body.gnafyar-projects-topbar-active .gnaf-projects-search-btn-v30'),
-      title:document.querySelector('body.gnafyar-projects-topbar-active .gnaf-projects-title-pill-v30'),
-      back:document.querySelector('body.gnafyar-projects-topbar-active .gnaf-projects-home-btn-v30'),
-      input:document.querySelector('body.gnafyar-projects-topbar-active .gnaf-projects-search-input-v58'),
-      clear:document.querySelector('body.gnafyar-projects-topbar-active .gnaf-projects-search-clear-v61')
+      bar:bar,
+      search:bar&&bar.querySelector(':scope > .gnaf-projects-search-btn-v30'),
+      title:bar&&bar.querySelector(':scope > .gnaf-projects-title-pill-v30'),
+      back:bar&&bar.querySelector(':scope > .gnaf-projects-home-btn-v30'),
+      input:bar&&bar.querySelector(':scope > .gnaf-projects-search-input-v58'),
+      clear:bar&&bar.querySelector(':scope > .gnaf-projects-search-clear-v61')
     };
   }
+  var searchIcon='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.9"/><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
+  var closeIcon='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/></svg>';
   function closeSearch(){
-    var p=getParts();
-    if(!p.bar||!p.search)return;
+    var p=parts(); if(!p.bar||!p.search)return;
     p.bar.classList.remove('is-searching');
-    if(p.back){
-      if(originalBackMarkup!==null)p.back.innerHTML=originalBackMarkup;
-      p.back.setAttribute('onclick',originalBackClick||"nav('home')");
-      p.back.setAttribute('aria-label',originalBackLabel||'بازگشت به خانه');
-      p.back.setAttribute('title',originalBackTitle||'بازگشت به خانه');
-    }
+    p.search.innerHTML=originalSearchMarkup||searchIcon;
+    p.search.setAttribute('aria-label','جستجوی پروژه‌ها');
+    p.search.setAttribute('title','جستجوی پروژه‌ها');
     if(p.input){
       p.input.value='';
       if(p.clear)p.clear.classList.remove('is-visible');
       if(typeof window.filterProjectsSearchV30==='function')window.filterProjectsSearchV30('');
       if(closeTimer)clearTimeout(closeTimer);
-      closeTimer=setTimeout(function(){var live=getParts();if(live.input&&!live.bar.classList.contains('is-searching'))live.input.remove();},280);
+      closeTimer=setTimeout(function(){var live=parts();if(live.input&&!live.bar.classList.contains('is-searching'))live.input.remove();},360);
     }else if(typeof window.filterProjectsSearchV30==='function')window.filterProjectsSearchV30('');
-    p.search.setAttribute('aria-label','جستجوی پروژه‌ها');
-    p.search.setAttribute('title','جستجوی پروژه‌ها');
   }
   function openSearch(){
-    var p=getParts();
-    if(!p.bar||!p.search||!p.back)return;
+    var p=parts(); if(!p.bar||!p.search)return;
     if(closeTimer){clearTimeout(closeTimer);closeTimer=null;}
-    if(originalBackMarkup===null){
-      originalBackMarkup=p.back.innerHTML;
-      originalBackClick=p.back.getAttribute('onclick');
-      originalBackLabel=p.back.getAttribute('aria-label');
-      originalBackTitle=p.back.getAttribute('title');
-    }
+    if(originalSearchMarkup===null)originalSearchMarkup=p.search.innerHTML;
     var input=p.input;
     if(!input){
-      input=document.createElement('input');
-      input.type='text';input.id='gnafProjectsSearchInputV58';input.inputMode='search';input.spellcheck=false;
-      input.className='gnaf-projects-search-input-v58';
-      input.placeholder='جستجو در نام پروژه یا کد گشت…';
-      input.autocomplete='off';input.setAttribute('aria-label','جستجو در پروژه‌ها');
+      input=document.createElement('input'); input.type='search'; input.id='gnafProjectsSearchInputV58';
+      input.inputMode='search'; input.spellcheck=false; input.className='gnaf-projects-search-input-v58';
+      input.placeholder='جستجو در نام پروژه یا کد گشت…'; input.autocomplete='off';
+      input.setAttribute('aria-label','جستجو در پروژه‌ها');
       input.addEventListener('input',function(){
         if(typeof window.filterProjectsSearchV30==='function')window.filterProjectsSearchV30(input.value);
-        var clearButton=getParts().clear;
-        if(clearButton)clearButton.classList.toggle('is-visible',!!input.value);
+        var live=parts(); if(live.clear)live.clear.classList.toggle('is-visible',!!input.value);
       });
       p.bar.appendChild(input);
     }
-    var clearButton=p.clear;
-    if(!clearButton){
-      clearButton=document.createElement('button');
-      clearButton.type='button';
-      clearButton.className='gnaf-projects-search-clear-v61';
-      clearButton.setAttribute('aria-label','پاک کردن متن جستجو');
-      clearButton.setAttribute('title','پاک کردن جستجو');
-      clearButton.innerHTML='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/></svg>';
-      clearButton.addEventListener('click',function(event){
-        event.preventDefault();event.stopPropagation();
-        var live=getParts();
-        if(!live.input)return;
-        live.input.value='';
-        if(typeof window.filterProjectsSearchV30==='function')window.filterProjectsSearchV30('');
-        clearButton.classList.remove('is-visible');
-        live.input.focus({preventScroll:true});
-      });
-      p.bar.appendChild(clearButton);
+    var clear=p.clear;
+    if(!clear){
+      clear=document.createElement('button'); clear.type='button'; clear.className='gnaf-projects-search-clear-v61';
+      clear.setAttribute('aria-label','پاک کردن متن جستجو'); clear.setAttribute('title','پاک کردن جستجو');
+      clear.innerHTML='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/></svg>';
+      clear.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();var live=parts();if(!live.input)return;live.input.value='';if(typeof window.filterProjectsSearchV30==='function')window.filterProjectsSearchV30('');clear.classList.remove('is-visible');live.input.focus({preventScroll:true});});
+      p.bar.appendChild(clear);
     }
-    clearButton.classList.toggle('is-visible',!!input.value);
-    p.back.innerHTML='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
-    p.back.setAttribute('onclick','toggleProjectsSearchV30(false)');
-    p.back.setAttribute('aria-label','لغو جستجو');
-    p.back.setAttribute('title','لغو جستجو');
-    p.search.setAttribute('aria-label','جستجوی پروژه‌ها');
-    p.search.setAttribute('title','جستجوی پروژه‌ها');
+    clear.classList.toggle('is-visible',!!input.value);
+    /* Keep the home/back control unchanged; the search control itself becomes the real close button. */
+    p.search.innerHTML=closeIcon;
+    p.search.setAttribute('aria-label','بستن جستجو');
+    p.search.setAttribute('title','بستن جستجو');
     p.bar.classList.add('is-searching');
-    requestAnimationFrame(function(){input.focus();});
+    requestAnimationFrame(function(){try{input.focus({preventScroll:true});}catch(_){input.focus();}});
   }
   window.toggleProjectsSearchV30=function(force){
-    var p=getParts();
-    if(!p.bar)return;
+    var p=parts(); if(!p.bar)return;
     var shouldOpen=typeof force==='boolean'?force:!p.bar.classList.contains('is-searching');
     if(shouldOpen)openSearch();else closeSearch();
   };
-  document.addEventListener('keydown',function(event){
-    var p=getParts();
-    if(p.bar&&p.bar.classList.contains('is-searching')&&event.key==='Escape'){
-      event.preventDefault();closeSearch();
-    }
-  });
+  document.addEventListener('keydown',function(e){var p=parts();if(p.bar&&p.bar.classList.contains('is-searching')&&e.key==='Escape'){e.preventDefault();closeSearch();}});
 })();
 </script>
 
@@ -11748,10 +11709,8 @@ body.gnafyar-projects-topbar-active .gnaf-projects-search-clear-v61:active{
         panel.classList.remove('gnaf-create-enter-v65');
       },{once:true});
     }
-    window.setTimeout(function(){
-      var input=document.getElementById('createProjectNameV47');
-      if(input)input.focus({preventScroll:true});
-    },220);
+    /* Do not focus any form field automatically: mobile keyboards open only
+       after the user taps the field they intend to edit. */
   }
   window.openProjectCreateFromEmptyV65=openProjectCreateFromEmptyV65;
 })();
@@ -12211,4 +12170,125 @@ window.closeHomeAboutCardV68=function(){
 </style>
 
 
+
+
+
+
+
+
+
+<!-- V80: make the Projects selector visually identical to the Home glass capsule; buttons stay completely transparent. -->
+<style id="gnafyar-projects-home-capsule-match-v80">
+#page-projects .projects-switch-wrap{
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  width:100%!important;max-width:100%!important;overflow:visible!important;
+}
+#page-projects .projects-switch{
+  position:relative!important;isolation:isolate!important;display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  align-items:center!important;justify-content:stretch!important;
+  direction:rtl!important;gap:2px!important;
+  width:min(100%,350px)!important;max-width:100%!important;min-width:0!important;
+  height:36px!important;min-height:36px!important;padding:2px!important;
+  box-sizing:border-box!important;border-radius:999px!important;overflow:hidden!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(247,244,255,.94))!important;
+  border:1px solid rgba(255,255,255,.98)!important;
+  box-shadow:inset 0 1px 2px rgba(255,255,255,.98),0 4px 12px rgba(76,61,119,.075)!important;
+}
+#page-projects .projects-switch>button,
+#page-projects .projects-switch>button.is-active,
+#page-projects .projects-switch>button:hover,
+#page-projects .projects-switch>button:focus,
+#page-projects .projects-switch>button:active{
+  appearance:none!important;-webkit-appearance:none!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  flex:1 1 0!important;min-width:0!important;width:100%!important;
+  height:30px!important;min-height:30px!important;margin:0!important;padding:0 2px!important;
+  gap:3px!important;box-sizing:border-box!important;border:0!important;
+  border-radius:999px!important;background:transparent!important;
+  background-color:transparent!important;box-shadow:none!important;
+  color:#89839a!important;font-family:inherit!important;font-size:9.5px!important;
+  font-weight:750!important;line-height:1!important;white-space:nowrap!important;
+  transform:none!important;outline:none!important;
+  transition:color .32s ease!important;cursor:pointer!important;
+}
+#page-projects .projects-switch>button.is-active{color:#62548f!important;}
+#page-projects .projects-switch>button .projects-tab-icon-v48{
+  display:block!important;flex:0 0 13px!important;width:13px!important;height:13px!important;
+  min-width:13px!important;max-width:13px!important;
+}
+#page-projects .projects-switch>button>span{
+  min-width:0!important;overflow:hidden!important;text-overflow:ellipsis!important;
+}
+#page-projects .projects-switch .projects-switch-indicator-v67{
+  position:absolute!important;z-index:-1!important;top:2px!important;bottom:2px!important;
+  left:auto!important;right:2px!important;width:0!important;height:auto!important;
+  border:1px solid rgba(255,255,255,.98)!important;border-radius:999px!important;
+  background:linear-gradient(145deg,#eee9fb,#e4ddf7)!important;
+  box-shadow:inset 0 1px 1px #fff,0 2px 6px rgba(94,75,148,.10)!important;
+  transform:translate3d(0,0,0)!important;
+  transition:right .58s cubic-bezier(.22,.82,.22,1),width .58s cubic-bezier(.22,.82,.22,1),opacity .2s ease!important;
+  will-change:right,width;backface-visibility:hidden;pointer-events:none!important;
+}
+@media(max-width:380px){
+  #page-projects .projects-switch{height:35px!important;min-height:35px!important;}
+  #page-projects .projects-switch>button{height:29px!important;min-height:29px!important;font-size:9px!important;gap:2px!important;}
+}
+@media(prefers-reduced-motion:reduce){
+  #page-projects .projects-switch .projects-switch-indicator-v67,
+  #page-projects .projects-switch>button{transition:none!important;}
+}
+</style>
+
+<!-- V79: projects tabs use the same measured sliding capsule behavior as the Home menu -->
+<style id="gnafyar-projects-home-style-slider-v79">
+#page-projects .projects-switch{position:relative!important;isolation:isolate!important;overflow:hidden!important;}
+#page-projects .projects-switch .projects-switch-indicator-v67{
+  left:auto!important;right:4px!important;width:0!important;
+  transform:translate3d(0,0,0)!important;
+  transition:right .58s cubic-bezier(.22,.82,.22,1),width .58s cubic-bezier(.22,.82,.22,1),opacity .2s ease!important;
+  will-change:right,width;backface-visibility:hidden;transform-origin:center!important;
+}
+#page-projects .projects-switch>button{flex:1 1 0!important;min-width:0!important;}
+@media(prefers-reduced-motion:reduce){#page-projects .projects-switch .projects-switch-indicator-v67{transition:none!important}}
+</style>
+<script id="gnafyar-projects-home-style-slider-v79-script">
+(function(){
+  'use strict';
+  var trackSelector='#page-projects .projects-switch';
+  function activeProjectTab(track){
+    return track.querySelector('.projects-switch>button.is-active') || track.querySelector('.projects-switch>button[aria-selected="true"]');
+  }
+  function moveProjectsIndicator(animate){
+    var track=document.querySelector(trackSelector);if(!track)return;
+    var tab=activeProjectTab(track),indicator=track.querySelector('.projects-switch-indicator-v67');
+    if(!tab||!indicator||getComputedStyle(track).display==='none')return;
+    var tr=track.getBoundingClientRect(),br=tab.getBoundingClientRect();
+    if(!tr.width||!br.width)return;
+    if(!animate){
+      indicator.style.setProperty('transition','none','important');
+    }
+    indicator.style.setProperty('right',Math.max(0,tr.right-br.right)+'px','important');
+    indicator.style.setProperty('width',br.width+'px','important');
+    indicator.style.setProperty('transform','translate3d(0,0,0)','important');
+    if(!animate){indicator.offsetHeight;indicator.style.removeProperty('transition');}
+  }
+  var original=window.setProjectsView;
+  if(typeof original==='function'){
+    window.setProjectsView=function(view,btn){
+      var result=original.apply(this,arguments);
+      requestAnimationFrame(function(){moveProjectsIndicator(true);});
+      return result;
+    };
+  }
+  function refresh(){requestAnimationFrame(function(){moveProjectsIndicator(false);});}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',refresh,{once:true});else refresh();
+  window.addEventListener('resize',refresh,{passive:true});
+  window.addEventListener('orientationchange',function(){setTimeout(refresh,100);},{passive:true});
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)refresh();});
+})();
+</script>
+
+
+<!-- V82: final physical separation of Projects search and back controls; keep the V78 header appearance and behavior. -->
 
