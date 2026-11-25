@@ -1,6 +1,3 @@
-
-
-
 <!doctype html>
 <html lang="fa" dir="rtl">
 <head>
@@ -1910,6 +1907,37 @@ i[class^="fa"],i[class*=" fa-"],.fa,.fas,.far,.fab,.material-icons,
         </button>
       </header>
       <div class="gnaf-projects-search-expand-v30" id="gnafProjectsSearchExpandV30" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7.5" stroke="currentColor" stroke-width="1.7"/><path d="m16.5 16.5 4 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="gnafProjectsSearchInputV30" type="search" placeholder="جستجو در نام پروژه یا کد گشت..." oninput="filterProjectsSearchV30(this.value)"/><button type="button" aria-label="بستن جستجو" onclick="toggleProjectsSearchV30(false)">×</button></div>
+
+  <!-- V87: new glass Projects header: back (left) · title pill (center) · search (right). The old v30 header stays in the DOM but is hidden. -->
+  <header class="gnaf-ptb87" id="gnafPtb87" dir="ltr" aria-label="نوار بالای پروژه‌ها">
+    <div class="ptb87-row">
+      <button class="ptb87-back" id="gnafPtb87Back" type="button" aria-label="بازگشت به خانه" title="بازگشت به خانه">
+        <span class="ptb87-ic ptb87-ic-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" aria-hidden="true"><path d="m7.25 3.75-4.5 4.5 4.5 4.5m6-4.5h-10.5"/></svg></span>
+        <span class="ptb87-ic ptb87-ic-x"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.1" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></span>
+      </button>
+      <div class="ptb87-title" dir="rtl">
+        <span class="ptb87-title-ico" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ptb87FolderA" x1="8" y1="7" x2="39" y2="42" gradientUnits="userSpaceOnUse"><stop stop-color="#A78BFA"/><stop offset=".52" stop-color="#8065E9"/><stop offset="1" stop-color="#5B4ACB"/></linearGradient>
+            <linearGradient id="ptb87FolderB" x1="11" y1="13" x2="37" y2="34" gradientUnits="userSpaceOnUse"><stop stop-color="#E9E2FF"/><stop offset="1" stop-color="#C9BBFF"/></linearGradient>
+          </defs>
+          <path d="M8.8 17.1c0-2 1.6-3.6 3.6-3.6h7.1l4 3.8h12.1c2 0 3.6 1.6 3.6 3.6v12.6c0 2-1.6 3.6-3.6 3.6H12.4c-2 0-3.6-1.6-3.6-3.6V17.1Z" fill="url(#ptb87FolderA)"/>
+          <path d="M10.8 20.1c0-1.4 1.1-2.5 2.5-2.5h22.2c1.4 0 2.5 1.1 2.5 2.5v1.1H10.8v-1.1Z" fill="url(#ptb87FolderB)"/>
+          <path d="M14.2 23.1h19.6" stroke="white" stroke-opacity=".65" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M37.5 5.2 38.8 9l3.8 1.3-3.8 1.3-1.3 3.8-1.3-3.8-3.8-1.3L36.2 9l1.3-3.8Z" fill="#F6B84A" stroke="white" stroke-width="1.1" stroke-linejoin="round"/>
+        </svg></span>
+        <span class="ptb87-title-text">پروژه‌های من</span>
+        <svg class="ptb87-verified" viewBox="0 0 24 24" fill="none" aria-label="تأیید شده"><circle cx="12" cy="12" r="10" fill="#229ED9"/><path d="m7.2 12.2 3.1 3.1 6.7-6.8" stroke="#fff" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="ptb87-search" id="gnafPtb87Search" dir="rtl" role="search">
+        <button class="ptb87-search-btn" id="gnafPtb87SearchBtn" type="button" aria-label="جستجوی پروژه‌ها" title="جستجوی پروژه‌ها">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.9"/><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+        </button>
+        <input class="ptb87-input" id="gnafPtb87Input" type="search" inputmode="search" autocomplete="off" spellcheck="false" tabindex="-1" placeholder="جستجو در نام پروژه یا کد گشت…" aria-label="جستجو در پروژه‌ها"/>
+        <button class="ptb87-clear" id="gnafPtb87Clear" type="button" tabindex="-1" aria-label="پاک کردن متن جستجو"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m8 8 8 8M16 8l-8 8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+      </div>
+    </div>
+  </header>
 
   <div class="pages">
     <!-- HOME -->
@@ -12292,3 +12320,220 @@ window.closeHomeAboutCardV68=function(){
 
 <!-- V82: final physical separation of Projects search and back controls; keep the V78 header appearance and behavior. -->
 
+
+<style id="gnafyar-glass-surface-white-fade-v84">
+/* V84: preserve the exact luminous top character; let both full-height glass surfaces fade smoothly into the white page base. No geometry, cards, menus, or navigation behavior is changed. */
+#page-home .home-quick-access-sheet{
+  background:
+    radial-gradient(ellipse 44% 20% at 13% 0%,rgba(133,104,255,.155) 0%,rgba(151,128,255,.075) 38%,rgba(151,128,255,0) 100%),
+    radial-gradient(ellipse 30% 17% at 91% 1%,rgba(178,157,255,.105) 0%,rgba(178,157,255,0) 100%),
+    linear-gradient(180deg,#fff 0%,#fdfcff 28%,#faf9ff 55%,#fdfcff 78%,#fff 100%)!important;
+  background-color:#fff!important;
+}
+#page-projects .projects-content-shell-v45{
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(235,228,255,.78),transparent 43%),
+    linear-gradient(180deg,#fff 0%,#fbfaff 30%,#faf9fd 56%,#fdfdff 79%,#fff 100%)!important;
+  background-color:#fff!important;
+}
+</style>
+
+<!-- V85: the home glass sheet now continues all the way to the bottom of the screen (behind the floating nav). Only the bottom spacing/fill changes; the sheet's look, radius and content are untouched. -->
+<style id="gnafyar-home-sheet-fill-to-bottom-v85">
+@media(max-width:999px){
+  /* The old empty bottom paddings (.app 140px + .page 112px) were what showed as the white strip under the sheet. */
+  #mainApp:has(#page-home.active){
+    display:flex!important;flex-direction:column!important;
+    padding-bottom:0!important;
+  }
+  #mainApp:has(#page-home.active)>.pages{
+    flex:1 0 auto!important;display:flex!important;flex-direction:column!important;
+  }
+  #mainApp #page-home.active{
+    flex:1 0 auto!important;display:flex!important;flex-direction:column!important;
+    padding-bottom:0!important;
+  }
+  #mainApp #page-home .home-quick-access-section{
+    flex:1 0 auto!important;display:flex!important;flex-direction:column!important;
+  }
+  /* The sheet stretches over every remaining pixel down to the bottom edge of the screen. */
+  #mainApp #page-home .home-quick-access-sheet{
+    flex:1 0 auto!important;
+    padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))!important;
+  }
+}
+</style>
+
+<!-- V85b: the Projects glass shell also continues to the bottom of the screen (same fix as Home). -->
+<style id="gnafyar-projects-shell-fill-to-bottom-v85">
+@media(max-width:999px){
+  #mainApp:has(#page-projects.active){
+    display:flex!important;flex-direction:column!important;
+    padding-bottom:0!important;
+  }
+  #mainApp:has(#page-projects.active)>.pages{
+    flex:1 0 auto!important;display:flex!important;flex-direction:column!important;
+  }
+  #mainApp #page-projects.active{
+    flex:1 0 auto!important;display:flex!important;flex-direction:column!important;
+    padding-bottom:0!important;
+  }
+  #mainApp #page-projects.active>.projects-content-shell-v45{
+    flex:1 0 auto!important;
+  }
+}
+</style>
+
+<style id="gnafyar-projects-glass-header-v87">
+/* ===== V87 — glass Projects header (Telegram-like) ===== */
+.gnaf-ptb87{display:none}
+/* hide the old v30 header + expanding panel (ID in the selector beats every earlier !important) */
+html body #mainApp header.gnaf-projects-topbar-v30,
+html body #mainApp .gnaf-projects-search-expand-v30{display:none!important}
+
+body.gnafyar-projects-topbar-active .gnaf-ptb87{
+  display:block;position:sticky;top:0;z-index:900;isolation:isolate;
+  box-sizing:border-box;width:100%;max-width:none;margin:0 0 10px;
+  padding:calc(env(safe-area-inset-top,0px) + 9px) 12px 9px;
+}
+@media(max-width:999px){
+  body.gnafyar-projects-topbar-active .gnaf-ptb87{width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
+}
+.ptb87-row{position:relative;height:48px;max-width:620px;margin:0 auto;direction:ltr}
+
+/* shared glass box look */
+.ptb87-back,.ptb87-title,.ptb87-search{
+  position:absolute;top:0;height:48px;box-sizing:border-box;margin:0;
+  border:1px solid rgba(255,255,255,.95);border-radius:999px;
+  background:linear-gradient(145deg,rgba(255,255,255,.90),rgba(248,245,255,.66));
+  -webkit-backdrop-filter:blur(14px) saturate(1.5);backdrop-filter:blur(14px) saturate(1.5);
+  box-shadow:0 7px 18px rgba(60,48,110,.10),0 1px 3px rgba(60,48,110,.06),inset 0 1.5px 0 rgba(255,255,255,.98),inset 0 -1px 0 rgba(128,102,216,.07);
+}
+/* back / close — left, 48×48 */
+.ptb87-back{
+  left:0;width:48px;padding:0;display:grid;place-items:center;cursor:pointer;
+  color:#2b2640;-webkit-tap-highlight-color:transparent;appearance:none;-webkit-appearance:none;
+  transition:transform .22s ease,background .35s ease,box-shadow .35s ease,color .35s ease;
+}
+.ptb87-back:active{transform:scale(.93)}
+.ptb87-ic{grid-area:1/1;display:grid;place-items:center;width:24px;height:24px;
+  transition:transform .5s cubic-bezier(.22,.9,.24,1),opacity .28s ease}
+.ptb87-ic svg{display:block;width:22px;height:22px}
+.ptb87-ic-x{opacity:0;transform:rotate(-90deg) scale(.4)}
+.ptb87-ic-x svg{width:23px;height:23px}
+
+/* title pill — between the two buttons, gap 8px */
+.ptb87-title{
+  left:56px;right:56px;display:flex;align-items:center;gap:9px;direction:rtl;
+  padding:0 5px 0 15px;overflow:hidden;
+  transition:opacity .26s ease,transform .55s cubic-bezier(.22,.9,.24,1),visibility 0s linear 0s;
+  transform-origin:100% 50%;
+}
+.ptb87-title-ico{
+  flex:0 0 38px;width:38px;height:38px;display:grid;place-items:center;border-radius:50%;
+  background:linear-gradient(145deg,#fff 0%,#efe9ff 100%);
+  border:1px solid rgba(255,255,255,.98);
+  box-shadow:0 4px 10px rgba(105,82,174,.16),inset 0 1.5px 0 #fff,inset 0 -2px 4px rgba(139,119,190,.10);
+}
+.ptb87-title-ico svg{display:block;width:25px;height:25px}
+.ptb87-title-text{flex:0 1 auto;min-width:0;font-size:15px;font-weight:900;letter-spacing:-.3px;color:#26223a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ptb87-verified{flex:0 0 17px;width:17px;height:17px;display:block}
+
+/* search — right; the circle itself grows toward the back button */
+.ptb87-search{
+  right:0;width:48px;overflow:hidden;direction:rtl;
+  transition:width .62s cubic-bezier(.22,.9,.24,1),box-shadow .4s ease,background .4s ease;
+  will-change:width;
+}
+.ptb87-search-btn{
+  position:absolute;right:0;top:0;width:46px;height:46px;padding:0;border:0;background:transparent;
+  display:grid;place-items:center;cursor:pointer;color:#2b2640;border-radius:50%;
+  -webkit-tap-highlight-color:transparent;appearance:none;-webkit-appearance:none;
+  transition:transform .3s cubic-bezier(.34,1.5,.5,1),color .3s ease;
+}
+.ptb87-search-btn:active{transform:scale(.9)}
+.ptb87-search-btn svg{display:block;width:23px;height:23px}
+.ptb87-input{
+  position:absolute;top:0;bottom:0;right:44px;left:12px;width:auto;height:100%;
+  box-sizing:border-box;padding:0 2px 0 4px;border:0;outline:0;background:transparent;box-shadow:none;
+  font-family:inherit;font-size:14px;font-weight:600;color:#26223a;direction:rtl;text-align:right;
+  opacity:0;transform:translateX(14px);pointer-events:none;
+  transition:opacity .22s ease,transform .5s cubic-bezier(.22,.9,.24,1);
+  -webkit-appearance:none;appearance:none;
+}
+.ptb87-input::placeholder{color:#9a94ad;font-weight:500}
+.ptb87-input::-webkit-search-cancel-button,.ptb87-input::-webkit-search-decoration{-webkit-appearance:none;display:none}
+.ptb87-clear{
+  position:absolute;left:8px;top:50%;width:28px;height:28px;margin-top:-14px;padding:0;border:0;border-radius:50%;
+  display:grid;place-items:center;cursor:pointer;color:#7a7390;background:rgba(128,102,216,.11);
+  opacity:0;transform:scale(.5);pointer-events:none;
+  transition:opacity .2s ease,transform .3s cubic-bezier(.34,1.5,.5,1);
+  -webkit-tap-highlight-color:transparent;
+}
+.ptb87-clear svg{width:13px;height:13px;display:block}
+
+/* ===== searching state ===== */
+.gnaf-ptb87.is-searching .ptb87-search{width:calc(100% - 56px)}
+.gnaf-ptb87.is-searching .ptb87-input{opacity:1;transform:translateX(0);pointer-events:auto;
+  transition:opacity .3s ease .22s,transform .55s cubic-bezier(.22,.9,.24,1) .16s}
+.gnaf-ptb87.is-searching.has-text .ptb87-clear{opacity:1;transform:scale(1);pointer-events:auto}
+.gnaf-ptb87.is-searching .ptb87-title{opacity:0;visibility:hidden;transform:translateX(-26px) scale(.86);pointer-events:none;
+  transition:opacity .22s ease,transform .5s cubic-bezier(.22,.9,.24,1),visibility 0s linear .5s}
+.gnaf-ptb87.is-searching .ptb87-ic-arrow{opacity:0;transform:rotate(90deg) scale(.4)}
+.gnaf-ptb87.is-searching .ptb87-ic-x{opacity:1;transform:rotate(0) scale(1);transition-delay:.08s}
+
+@media(max-width:360px){
+  .ptb87-row{height:46px}
+  .ptb87-back,.ptb87-title,.ptb87-search{height:46px}
+  .ptb87-back{width:46px}.ptb87-search{width:46px}
+  .ptb87-title{left:53px;right:53px}
+  .ptb87-search-btn{width:44px;height:44px}
+  .ptb87-title-ico{flex-basis:36px;width:36px;height:36px}
+  .gnaf-ptb87.is-searching .ptb87-search{width:calc(100% - 53px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .ptb87-search,.ptb87-title,.ptb87-input,.ptb87-ic,.ptb87-clear,.ptb87-back{transition-duration:.01s!important;transition-delay:0s!important}
+}
+</style>
+<script id="gnafyar-projects-glass-header-v87-script">
+(function(){
+  'use strict';
+  var bar=document.getElementById('gnafPtb87'); if(!bar)return;
+  var input=document.getElementById('gnafPtb87Input');
+  var clear=document.getElementById('gnafPtb87Clear');
+  var back=document.getElementById('gnafPtb87Back');
+  var sbtn=document.getElementById('gnafPtb87SearchBtn');
+  function filter(v){ if(typeof window.filterProjectsSearchV30==='function')window.filterProjectsSearchV30(v); }
+  function syncText(){ bar.classList.toggle('has-text',!!input.value); }
+  function setOpen(open){
+    if(open===bar.classList.contains('is-searching')){ if(open)try{input.focus({preventScroll:true});}catch(_){input.focus();} return; }
+    bar.classList.toggle('is-searching',open);
+    input.tabIndex=open?0:-1; clear.tabIndex=open?0:-1;
+    back.setAttribute('aria-label',open?'بستن جستجو':'بازگشت به خانه');
+    back.setAttribute('title',open?'بستن جستجو':'بازگشت به خانه');
+    sbtn.setAttribute('aria-label',open?'جستجو':'جستجوی پروژه‌ها');
+    if(open){
+      setTimeout(function(){ if(bar.classList.contains('is-searching')){ try{input.focus({preventScroll:true});}catch(_){input.focus();} } },260);
+    }else{
+      input.value=''; syncText(); filter(''); input.blur();
+    }
+  }
+  sbtn.addEventListener('click',function(e){e.preventDefault();setOpen(true);});
+  back.addEventListener('click',function(e){
+    e.preventDefault();
+    if(bar.classList.contains('is-searching'))setOpen(false);
+    else if(typeof window.nav==='function')window.nav('home');
+  });
+  input.addEventListener('input',function(){syncText();filter(input.value);});
+  clear.addEventListener('click',function(e){e.preventDefault();input.value='';syncText();filter('');try{input.focus({preventScroll:true});}catch(_){input.focus();}});
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&bar.classList.contains('is-searching')){e.preventDefault();setOpen(false);} });
+  /* keep old entry points working */
+  window.toggleProjectsSearchV30=function(force){ setOpen(typeof force==='boolean'?force:!bar.classList.contains('is-searching')); };
+  /* leaving the Projects page closes the search so it never stays open behind another page */
+  if('MutationObserver' in window){
+    new MutationObserver(function(){
+      if(!document.body.classList.contains('gnafyar-projects-topbar-active')&&bar.classList.contains('is-searching'))setOpen(false);
+    }).observe(document.body,{attributes:true,attributeFilter:['class']});
+  }
+})();
+</script>
